@@ -20,7 +20,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
 		"paths": {
-			//"@path_name/*": ["path_module/*"]
+			"@Controllers/*": ["src/Controllers/*"],
+			"@Router/*": ["src/Router/*"]
 		}
 	},
 	"include": ["src/**/*"]

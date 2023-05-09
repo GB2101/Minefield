@@ -1,10 +1,9 @@
 import express from 'express';
+import router from '@Router/routes';
 
 const app = express();
-app.use(express.json());
 
-app.get('/', function(req, res) {
-	res.send({ message: 'hello world' });
-});
+app.use(express.json());
+app.use(router);
 
 app.listen(3000);
