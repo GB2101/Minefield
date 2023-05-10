@@ -14,6 +14,7 @@ module.exports = {
 		['module-resolver', {
 			alias: {
 				'@Controllers': './src/Controllers',
+				'@Middlewares': './src/Middlewares',
 				'@Router': './src/Router',
 			}
 		}]
