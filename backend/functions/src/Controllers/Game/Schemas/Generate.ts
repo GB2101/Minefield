@@ -1,8 +1,11 @@
 import { z } from 'zod';
 
 const Body = z.object({
-	id: z.string(),
-	value: z.number().optional(),
+	seed: z.string().min(5),
+	width: z.number().min(5).max(100),
+	height: z.number().min(5).max(100),
+	bombs: z.number().min(10),
 });
 
-export { Body };
+export const Schemas = { Body };
+export type BodyType = z.infer<typeof Body>;

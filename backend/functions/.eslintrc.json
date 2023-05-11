@@ -80,7 +80,7 @@
 		],
 		"multiline-comment-style": ["warn", "separate-lines"],
 		"new-parens": ["warn", "always"],
-		"newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 2 }],
+		"newline-per-chained-call": ["warn", { "ignoreChainWithDepth": 3 }],
 		"no-bitwise": "error",
 		"no-lonely-if": "error",
 		"no-mixed-operators": "error",
@@ -170,6 +170,7 @@
 		"@typescript-eslint/no-unnecessary-boolean-literal-compare": "warn",
 		"@typescript-eslint/no-unnecessary-condition": "warn",
 		"@typescript-eslint/no-unsafe-argument": "off",
+		"@typescript-eslint/no-unsafe-assignment": "off",
 		"@typescript-eslint/no-explicit-any": "error",
 		"@typescript-eslint/non-nullable-type-assertion-style": "warn",
 		"@typescript-eslint/parameter-properties": "warn",
@@ -212,7 +213,7 @@
 		"@typescript-eslint/keyword-spacing": ["warn"],
 
 		"lines-between-class-members": "off",
-		"@typescript-eslint/lines-between-class-members": ["warn", "always"],
+		"@typescript-eslint/lines-between-class-members": "off",
 
 		"no-array-constructor": "off",
 		"@typescript-eslint/no-array-constructor": ["error"],

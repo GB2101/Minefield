@@ -1,12 +1,13 @@
 import { Generate } from './Generate';
 
-import { Body } from './Schemas/Generate';
+import { Schemas } from './Schemas/Generate';
 
-const GameController = {
+const GameCtrl = {
 	Generate,
-	Schemas: {
-		Body,
-	},
 };
 
-export { GameController };
+const GameSchemas = {
+	Generate: Schemas,
+};
+
+export { GameCtrl, GameSchemas };

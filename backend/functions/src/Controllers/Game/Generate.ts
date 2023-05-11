@@ -1,16 +1,10 @@
 import { Request, Response } from 'express';
+import { BodyType } from './Schemas/Generate';
 
-interface Test {
-	id: string;
-	value: number;
-}
+const Generate = (req: Request, res: Response): void => {
+	const body = res.locals.body as BodyType;
 
-type Void = Record<string, never>;
-
-const Generate = (req: Request<Void, Void, Test>, res: Response): void => {
-	const { body } = req;
-
-	console.log(body.id);
+	// console.log(body.id);
 
 	res.send({ body });
 };
