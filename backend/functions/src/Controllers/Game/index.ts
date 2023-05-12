@@ -1,8 +1,8 @@
 import { Generate } from './Generate';
-
 import { Schemas } from './Schemas/Generate';
+import { Middlewares } from './Middlewares/Generate';
 
-const GameCtrl = {
+const GameController = {
 	Generate,
 };
 
@@ -10,4 +10,8 @@ const GameSchemas = {
 	Generate: Schemas,
 };
 
-export { GameCtrl, GameSchemas };
+const GameFunctions = {
+	Generate: Middlewares,
+};
+
+export { GameController, GameSchemas, GameFunctions };
