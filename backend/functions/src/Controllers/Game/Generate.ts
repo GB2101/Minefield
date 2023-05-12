@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
+
+import { GenerateGame } from '@Functions/GenerateGame';
 import { BodyType } from './Schemas/Generate';
 
 const Generate = (req: Request, res: Response): void => {
-	const body = res.locals.body as BodyType;
+	const { bombs, height, width } = res.locals.body as BodyType;
 
-	// console.log(body.id);
+	const board = GenerateGame(width, height, bombs);
 
-	res.send({ body });
+	res.send({ board });
 };
 
 export { Generate };
