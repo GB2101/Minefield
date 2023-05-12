@@ -155,7 +155,12 @@
 		"@typescript-eslint/explicit-function-return-type": [
 			"error",
 			{
-				"allowExpressions": true
+				"allowExpressions": true,
+				"allowTypedFunctionExpressions": true,
+				"allowHigherOrderFunctions": true,
+				"allowDirectConstAssertionInArrowFunctions": true,
+				"allowConciseArrowFunctionExpressionsStartingWithVoid": true,
+				"allowFunctionsWithoutTypeParameters": true
 			}
 		],
 		"@typescript-eslint/consistent-type-exports": "error",

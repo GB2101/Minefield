@@ -21,8 +21,11 @@
 		"baseUrl": ".",
 		"paths": {
 			"@Controllers/*": ["src/Controllers/*"],
+			"@Interfaces/*": ["src/Interfaces/*"],
+			"@Functions/*": ["src/Functions/*"],
 			"@Middlewares/*": ["src/Middlewares/*"],
-			"@Router/*": ["src/Router/*"]
+			"@Router/*": ["src/Router/*"],
+			"@Utils/*": ["src/Utils/*"]
 		}
 	},
 	"include": ["src/**/*"]
