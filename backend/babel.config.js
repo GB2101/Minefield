@@ -17,6 +17,7 @@ module.exports = {
 				'@Interfaces': './src/Interfaces',
 				'@Functions': './src/Functions',
 				'@Middlewares': './src/Middlewares',
+				'@Resources': './src/Resources',
 				'@Router': './src/Router',
 				'@Utils': './src/Utils',
 			}

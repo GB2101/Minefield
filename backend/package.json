@@ -8,7 +8,8 @@
 		"tester": "jest --watchAll --verbose --detectOpenHandles",
 		"coverage": "jest --coverage --verbose",
 		"uncover": "rm -rf src/__Tests__/coverage",
-		"clear": "jest --clearCache"
+		"clear-cache": "jest --clearCache",
+		"verify": "tsc --noEmit"
 	},
 	"engines": {
 		"node": "16"
