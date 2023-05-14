@@ -7,6 +7,12 @@ describe('Testing Cell Resource', () => {
 		cell = new Cell();
 	});
 
+	test('Expects cell to be open', () => {
+		cell.Open();
+
+		expect(cell.state).toBe('open');
+	});
+
 	test('Expects cell to be a bomb', () => {
 		// UpdateCell(cell, true);
 		cell.MakeBomb();

@@ -16,4 +16,4 @@ interface Error500 {
 	message: string;
 }
 
-export type { Error400, Error500 };
+export type { Issue, Error400, Error500 };

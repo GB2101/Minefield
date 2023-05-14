@@ -40,6 +40,14 @@ describe('Testing Game Resource - Board Generation', () => {
 
 		expect(counter).toBe(0);
 	});
+
+	test('Expects to throw error when number of bombs is to high', () => {
+		const createGameSafe = () => new Game({ width: 5, height: 5, bombs: 10 });
+		const createGameUnSafe = () => new Game({ width: 5, height: 5, bombs: 15 });
+
+		expect(createGameSafe).not.toThrow();
+		expect(createGameUnSafe).toThrow();
+	});
 });
 
 describe('Testing Game Resource - Cell Update', () => {

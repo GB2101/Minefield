@@ -2,6 +2,7 @@ import { Cell } from './Cell';
 import { Coord } from '@Interfaces/Game';
 import { Random } from '@Utils/Random';
 import { Contains } from '@Utils/Array';
+import { ErrorInvalidArgs } from '@Errors/ErrorInvalidArgs';
 
 interface GameProps {
 	width: number;
@@ -33,6 +34,15 @@ export class Game {
 	}
 
 	public constructor(props: GameProps) {
+		const { bombs, height, width } = props;
+
+		const maximum = Math.floor((height * width) / 2);
+		const valid = bombs <= maximum;
+
+		if (!valid) {
+			throw new ErrorInvalidArgs(`The amount of bombs must be less then or equal to half of the number of squares (${maximum})`, [ 'bombs' ]);
+		}
+
 		this._width = props.width;
 		this._height = props.height;
 		this._bombs = props.bombs;
