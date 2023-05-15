@@ -19,6 +19,7 @@
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
+		"types": ["vitest/globals"],
 		"paths": {
 			"@Controllers/*": ["src/Controllers/*"],
 			"@Interfaces/*": ["src/Interfaces/*"],
