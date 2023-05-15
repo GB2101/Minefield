@@ -19,10 +19,16 @@
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"baseUrl": ".",
+		"types": ["vitest/globals"],
 		"paths": {
 			"@Controllers/*": ["src/Controllers/*"],
+			"@Interfaces/*": ["src/Interfaces/*"],
+			"@Errors/*": ["src/Errors/*"],
+			"@Functions/*": ["src/Functions/*"],
 			"@Middlewares/*": ["src/Middlewares/*"],
-			"@Router/*": ["src/Router/*"]
+			"@Resources/*": ["src/Resources/*"],
+			"@Router/*": ["src/Router/*"],
+			"@Utils/*": ["src/Utils/*"]
 		}
 	},
 	"include": ["src/**/*"]

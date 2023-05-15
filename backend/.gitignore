@@ -1,3 +1,12 @@
+# VSCode config files
+.vscode/
+
+# Compiled JavaScript files
+lib/
+
+# TypeScript v1 declaration files
+typings/
+
 # Logs
 logs
 *.log
