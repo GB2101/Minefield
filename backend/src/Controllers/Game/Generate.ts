@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { AsyncHandler } from '@Interfaces/Request';
 
 import { Game } from '@Resources/Game';
 import { BodyType } from './Schemas/Generate';
@@ -8,7 +8,7 @@ import { ErrorInvalidArgs } from '@Errors/ErrorInvalidArgs';
 import { Firebase } from '@Resolvers/Database/Firebase';
 import { GameService } from '@Services/Game';
 
-const Generate = async (req: Request, res: Response): Promise<void> => {
+const Generate: AsyncHandler = async (req, res) => {
 	const { bombs, height, width } = res.locals.body as BodyType;
 
 	try {
