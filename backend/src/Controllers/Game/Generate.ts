@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 import { Game } from '@Resources/Game';
 import { BodyType } from './Schemas/Generate';
 import { Error400 } from '@Interfaces/Errors';
-import { GameInterface, Data } from '@Interfaces/Game';
+import { GameInterface } from '@Interfaces/Game';
 import { ErrorInvalidArgs } from '@Errors/ErrorInvalidArgs';
 import { Firebase } from '@Resolvers/Database/Firebase';
 import { GameService } from '@Services/Game';
@@ -13,14 +13,13 @@ const Generate = async (req: Request, res: Response): Promise<void> => {
 
 	try {
 		const game = new Game({ width, height, bombs });
-		game.Generate();
 
-		const Database = new Firebase<Data>();
+		const Database = new Firebase<GameInterface>();
 
 		const service = new GameService(Database);
-		await service.Generate(game.GetData(), 'Games');
+		const id = await service.Generate(game.GetData(), 'Games');
 
-		res.send({ game });
+		res.status(201).send({ id });
 	} catch (error) {
 		if (error instanceof ErrorInvalidArgs) {
 			res.status(400).send({

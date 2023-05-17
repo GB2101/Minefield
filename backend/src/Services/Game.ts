@@ -9,7 +9,8 @@ class GameService<T extends Data> {
 	}
 
 	public async Generate(data: T, location: string, document?: string) {
-		await this.database.write(data, location, document);
+		const id = await this.database.write(data, location, document);
+		return id;
 	}
 }
 
