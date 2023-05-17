@@ -8,6 +8,8 @@ import { GameController, GameSchemas } from '@Controllers/Game';
 const router = Router();
 
 router.get('/', HelloController);
+// eslint-disable-next-line
+
 router.post('/game', Validate(GameSchemas.Generate.Body, 'body'), GameController.Generate);
 
 export default router;

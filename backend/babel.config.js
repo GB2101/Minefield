@@ -13,13 +13,17 @@ module.exports = {
 	plugins: [
 		['module-resolver', {
 			alias: {
+				'@private': './src/private',
+				'@Contracts': './src/Contracts',
 				'@Controllers': './src/Controllers',
-				'@Interfaces': './src/Interfaces',
 				'@Errors': './src/Errors',
 				'@Functions': './src/Functions',
+				'@Interfaces': './src/Interfaces',
 				'@Middlewares': './src/Middlewares',
+				'@Resolvers': './src/Resolvers',
 				'@Resources': './src/Resources',
 				'@Router': './src/Router',
+				'@Services': './src/Services',
 				'@Utils': './src/Utils',
 			}
 		}]

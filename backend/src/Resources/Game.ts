@@ -1,5 +1,5 @@
-import { Cell } from './Cell';
-import { Coord } from '@Interfaces/Game';
+import { Cell, Board } from './index';
+import { Coord, GameInterface } from '@Interfaces/Game';
 import { Random } from '@Utils/Random';
 import { Contains } from '@Utils/Array';
 import { ErrorInvalidArgs } from '@Errors/ErrorInvalidArgs';
@@ -10,11 +10,11 @@ interface GameProps {
 	bombs: number;
 }
 
-export class Game {
+export class Game implements GameInterface {
 	private _width: number;
 	private _height: number;
 	private _bombs: number;
-	private _board: Cell[][];
+	private _board: Board;
 	private _locations: Coord[];
 
 	public get width() {
@@ -27,7 +27,7 @@ export class Game {
 		return this._bombs;
 	}
 	public get board() {
-		return this._board;
+		return this._board.GetData();
 	}
 	public get locations() {
 		return this._locations;
@@ -46,15 +46,24 @@ export class Game {
 		this._width = props.width;
 		this._height = props.height;
 		this._bombs = props.bombs;
-		this._board = [];
+		this._board = new Board(width, height);
 		this._locations = [];
 
-		for (let x = 0; x < this._width; x++) {
-			this._board[x] = [];
-			for (let y = 0; y < this._height; y++) {
-				this._board[x][y] = new Cell();
-			}
-		}
+		this.Generate();
+	}
+
+	public GetData(): GameInterface {
+		return {
+			width: this._width,
+			height: this._height,
+			bombs: this._bombs,
+			board: this._board.GetData(),
+			locations: this._locations,
+		};
+	}
+
+	public GetCell(cell: Coord) {
+		return this._board.GetCell(cell);
 	}
 
 	public Generate() {
@@ -69,40 +78,7 @@ export class Game {
 			}
 
 			this._locations.push({ x, y });
-			this.UpdateCells({ x, y });
-		}
-	}
-
-	public UpdateCells(bomb: Coord) {
-		const spaces = [
-			{ x: 0, y: 1 },
-			{ x: 1, y: 1 },
-			{ x: 1, y: 0 },
-			{ x: 1, y: -1 },
-			{ x: 0, y: -1 },
-			{ x: -1, y: -1 },
-			{ x: -1, y: 0 },
-			{ x: -1, y: 1 },
-		];
-
-		this._board[bomb.x][bomb.y].MakeBomb();
-		for (const space of spaces) {
-			const x = bomb.x + space.x;
-			const y = bomb.y + space.y;
-
-			if (x < 0 || x >= this._width) {
-				continue;
-			}
-
-			if (y < 0 || y >= this._height) {
-				continue;
-			}
-
-			if (this._board[x][y].bomb) {
-				continue;
-			}
-
-			this._board[x][y].Increment();
+			this._board.UpdateCells({ x, y });
 		}
 	}
 }

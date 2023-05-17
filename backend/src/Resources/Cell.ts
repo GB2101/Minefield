@@ -1,4 +1,6 @@
-export class Cell {
+import { CellInterface } from '@Interfaces/Game';
+
+export class Cell implements CellInterface {
 	private _bomb: boolean;
 	private _state: 'open' | 'closed';
 	private _content: number;
@@ -34,5 +36,13 @@ export class Cell {
 		if (!this._bomb) {
 			this._content += 1;
 		}
+	}
+
+	public GetData(): CellInterface {
+		return {
+			bomb: this._bomb,
+			state: this._state,
+			content: this._content,
+		};
 	}
 }

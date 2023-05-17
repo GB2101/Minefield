@@ -197,6 +197,14 @@
 				"checkCompoundAssignments": true
 			}
 		],
+		"@typescript-eslint/no-misused-promises": [
+			"error",
+			{
+				"checksSpreads": true,
+				"checksVoidReturn": false,
+				"checksConditionals": true
+			}
+		],
 
 		// Typescript Extension
 		"brace-style": "off",

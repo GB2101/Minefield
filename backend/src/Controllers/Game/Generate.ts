@@ -2,15 +2,23 @@ import { Request, Response } from 'express';
 
 import { Game } from '@Resources/Game';
 import { BodyType } from './Schemas/Generate';
-import { Error400, Error500 } from '@Interfaces/Errors';
+import { Error400 } from '@Interfaces/Errors';
+import { GameInterface, Data } from '@Interfaces/Game';
 import { ErrorInvalidArgs } from '@Errors/ErrorInvalidArgs';
+import { Firebase } from '@Resolvers/Database/Firebase';
+import { GameService } from '@Services/Game';
 
-const Generate = (req: Request, res: Response): void => {
+const Generate = async (req: Request, res: Response): Promise<void> => {
 	const { bombs, height, width } = res.locals.body as BodyType;
 
 	try {
 		const game = new Game({ width, height, bombs });
 		game.Generate();
+
+		const Database = new Firebase<Data>();
+
+		const service = new GameService(Database);
+		await service.Generate(game.GetData(), 'Games');
 
 		res.send({ game });
 	} catch (error) {
