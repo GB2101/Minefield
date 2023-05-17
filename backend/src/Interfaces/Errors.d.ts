@@ -1,7 +1,9 @@
 import { ZodIssue } from 'zod';
 
+type ErrorTypes = 'InvalidValue' | 'IdNotFound';
+
 interface Issue {
-	code: 'invalid_value';
+	code: ErrorTypes;
 	message: string;
 	path: string[];
 }
@@ -16,4 +18,4 @@ interface Error500 {
 	message: string;
 }
 
-export type { Issue, Error400, Error500 };
+export type { ErrorTypes, Issue, Error400, Error500 };

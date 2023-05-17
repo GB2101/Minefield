@@ -6,20 +6,22 @@ class Board {
 	private width: number;
 	private height: number;
 
-	public constructor(width: number, height: number) {
+	public constructor(width: number, height: number, assign?: CellInterface[]) {
 		this.items = [];
 		this.width = width;
 		this.height = height;
 
 		const limit = this.width * this.height;
-		for (let x = 0; x < limit; x++) {
-			this.items[x] = new Cell();
+		if (assign) {
+			for (let x = 0; x < limit; x++) {
+				this.items[x] = new Cell(assign[x]);
+			}
+		} else {
+			for (let x = 0; x < limit; x++) {
+				this.items[x] = new Cell();
+			}
 		}
 	}
-
-	// private Index(x: number, y: number): number {
-	// 	return (x * this.width) + y;
-	// }
 
 	public GetData(): CellInterface[] {
 		return this.items.map(cell => cell.GetData());

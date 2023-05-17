@@ -4,7 +4,7 @@ import { Game } from '@Resources/Game';
 import { BodyType } from './Schemas/Generate';
 import { Error400 } from '@Interfaces/Errors';
 import { GameInterface } from '@Interfaces/Game';
-import { ErrorInvalidArgs } from '@Errors/ErrorInvalidArgs';
+import { ValidationError } from '@Errors/index';
 import { Firebase } from '@Resolvers/Database/Firebase';
 import { GameService } from '@Services/Game';
 
@@ -21,10 +21,10 @@ const Generate: AsyncHandler = async (req, res) => {
 
 		res.status(201).send({ id });
 	} catch (error) {
-		if (error instanceof ErrorInvalidArgs) {
-			res.status(400).send({
-				error: 'InvalidArgument',
-				issues: [ error ],
+		if (error instanceof ValidationError) {
+			res.status(error.status).send({
+				error: error.code,
+				issues: [ error.GetIssue() ],
 			} as Error400);
 		}
 	}

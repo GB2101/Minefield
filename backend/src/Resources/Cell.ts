@@ -5,10 +5,16 @@ export class Cell implements CellInterface {
 	private _state: 'open' | 'closed';
 	private _content: number;
 
-	public constructor() {
-		this._bomb = false;
-		this._state = 'closed';
-		this._content = 0;
+	public constructor(assign?: CellInterface) {
+		if (assign) {
+			this._bomb = assign.bomb;
+			this._state = assign.state;
+			this._content = assign.content;
+		} else {
+			this._bomb = false;
+			this._state = 'closed';
+			this._content = 0;
+		}
 	}
 
 	public get bomb() {

@@ -19,6 +19,7 @@ module.exports = {
 				'@Errors': './src/Errors',
 				'@Functions': './src/Functions',
 				'@Interfaces': './src/Interfaces',
+				'@Mappings': './src/Mappings',
 				'@Middlewares': './src/Middlewares',
 				'@Resolvers': './src/Resolvers',
 				'@Resources': './src/Resources',

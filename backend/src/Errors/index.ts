@@ -1,1 +1,1 @@
-export * from './ErrorInvalidArgs';
+export * from './Error';

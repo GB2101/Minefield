@@ -1,8 +1,8 @@
-import { Cell, Board } from './index';
+import { Board } from './index';
 import { Coord, GameInterface } from '@Interfaces/Game';
 import { Random } from '@Utils/Random';
 import { Contains } from '@Utils/Array';
-import { ErrorInvalidArgs } from '@Errors/ErrorInvalidArgs';
+import { ValidationError } from '@Errors/index';
 
 interface GameProps {
 	width: number;
@@ -33,23 +33,30 @@ export class Game implements GameInterface {
 		return this._locations;
 	}
 
-	public constructor(props: GameProps) {
-		const { bombs, height, width } = props;
+	public constructor(props: GameProps, assign?: GameInterface) {
+		const { bombs, height, width } = assign ?? props;
 
 		const maximum = Math.floor((height * width) / 2);
 		const valid = bombs <= maximum;
 
 		if (!valid) {
-			throw new ErrorInvalidArgs(`The amount of bombs must be less then or equal to half of the number of squares (${maximum})`, [ 'bombs' ]);
+			const message = `The amount of bombs must be at maximum half of the number of squares (${maximum})`;
+			throw new ValidationError('InvalidValue', 400, message, [ 'bombs' ]);
 		}
 
-		this._width = props.width;
-		this._height = props.height;
-		this._bombs = props.bombs;
-		this._board = new Board(width, height);
-		this._locations = [];
+		this._width = width;
+		this._height = height;
+		this._bombs = bombs;
 
-		this.Generate();
+		if (assign) {
+			this._locations = assign.locations;
+			this._board = new Board(assign.width, assign.height, assign.board);
+		} else {
+			this._locations = [];
+			this._board = new Board(width, height);
+
+			this.Generate();
+		}
 	}
 
 	public GetData(): GameInterface {

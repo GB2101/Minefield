@@ -1,14 +1,9 @@
 import { getFirestore } from 'firebase-admin/firestore';
 
+import { app } from 'src/firebase';
+import { ValidationError } from '@Errors/index';
 import { Data } from '@Interfaces/Game';
 import { DataBase } from '@Contracts/Database';
-import { app } from 'src/firebase';
-
-const test2 = <T>(location: string): T => {
-	const test = {} as T;
-
-	return test;
-};
 
 class Firebase<T extends Data> implements DataBase<T> {
 	public database = getFirestore(app);
@@ -25,7 +20,17 @@ class Firebase<T extends Data> implements DataBase<T> {
 		return reference.id;
 	}
 
-	public read: (location: string) => T = test2;
+	public async read(location: string, document: string): Promise<T> {
+		const reference = this.database.collection(location).doc(document);
+
+		const snapshot = await reference.get();
+
+		if (!snapshot.exists) {
+			throw new ValidationError('IdNotFound', 404, `The document id: ${document} was not found`);
+		}
+		const data = snapshot.data() as T;
+		return data;
+	}
 }
 
 export { Firebase };

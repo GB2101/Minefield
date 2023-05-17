@@ -12,6 +12,11 @@ class GameService<T extends Data> {
 		const id = await this.database.write(data, location, document);
 		return id;
 	}
+
+	public async LookUp(location: string, document: string) {
+		const doc = await this.database.read(location, document);
+		return doc;
+	}
 }
 
 export { GameService };

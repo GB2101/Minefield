@@ -21,7 +21,7 @@
 		"indent": ["warn", "tab"],
 		"linebreak-style": ["error", "unix"],
 		"no-unreachable-loop": "error",
-		"require-atomic-updates": "error",
+		"require-atomic-updates": ["error", { "allowProperties": true }],
 
 		"array-bracket-newline": ["warn", { "multiline": true }],
 		"array-bracket-spacing": [
