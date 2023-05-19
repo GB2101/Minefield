@@ -24,6 +24,7 @@ module.exports = {
 				'@Resolvers': './src/Resolvers',
 				'@Resources': './src/Resources',
 				'@Router': './src/Router',
+				'@Schemas': './src/Schemas',
 				'@Services': './src/Services',
 				'@Utils': './src/Utils',
 			}

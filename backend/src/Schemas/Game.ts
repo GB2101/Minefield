@@ -7,5 +7,5 @@ const Body = z.object({
 	bombs: z.number().min(10),
 });
 
-export const Schemas = { Body };
-export type BodyType = z.infer<typeof Body>;
+export const GameSchemas = { Body };
+export type GameBodyType = z.infer<typeof Body>;

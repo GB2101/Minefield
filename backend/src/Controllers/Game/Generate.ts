@@ -1,7 +1,7 @@
 import { AsyncHandler } from '@Interfaces/Request';
 
 import { Game } from '@Resources/Game';
-import { BodyType } from './Schemas/Generate';
+import { GameBodyType } from '@Schemas/Game';
 import { Error400 } from '@Interfaces/Errors';
 import { GameInterface } from '@Interfaces/Game';
 import { ValidationError } from '@Errors/index';
@@ -9,7 +9,7 @@ import { Firebase } from '@Resolvers/Database/Firebase';
 import { GameService } from '@Services/Game';
 
 const Generate: AsyncHandler = async (req, res) => {
-	const { bombs, height, width } = res.locals.body as BodyType;
+	const { bombs, height, width } = res.locals.body as GameBodyType;
 
 	try {
 		const game = new Game({ width, height, bombs });

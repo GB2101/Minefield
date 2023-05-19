@@ -1,12 +1,9 @@
 import { Generate } from './Generate';
-import { Schemas } from './Schemas/Generate';
+import { Find } from './Find';
 
 const GameController = {
 	Generate,
+	Find,
 };
 
-const GameSchemas = {
-	Generate: Schemas,
-};
-
-export { GameController, GameSchemas };
+export { GameController };
