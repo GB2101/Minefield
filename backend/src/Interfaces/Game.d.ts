@@ -9,19 +9,37 @@ interface CellInterface {
 	bomb: boolean;
 	state: 'open' | 'closed';
 	content: number;
+	coord: Coord;
 }
 
-interface BoardInterface {
-	items: Cell[];
+// interface BoardInterface {
+// 	items: Cell[];
+// }
+
+interface MoveInterface {
+	bomb: boolean;
+	content: number;
+	coord: Coord;
+}
+
+type Status = 'Won' | 'Playing' | 'Lost';
+
+interface Movement {
+	coord: Coord;
+	status: Status;
+	flags?: Coord[];
+	open_cells: MoveInterface[];
 }
 
 // eslint-disable-next-line
 type GameInterface = {
 	width: number;
-	height: number;
 	bombs: number;
-	board: CellInterface[];
+	height: number;
+	status: Status;
 	locations: Coord[];
+	board: CellInterface[];
+	movements: Movement[];
 };
 
-export type { Data, Coord, GameInterface, CellInterface };
+export type { Data, Coord, GameInterface, CellInterface, MoveInterface, Movement, Status };

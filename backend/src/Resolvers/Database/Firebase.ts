@@ -1,11 +1,11 @@
 import { getFirestore } from 'firebase-admin/firestore';
 
-import { app } from 'src/firebase';
-import { ValidationError } from '@Errors/index';
-import { Data } from '@Interfaces/Game';
 import { DataBase } from '@Contracts/Database';
+import { app } from 'src/firebase';
+import { Data } from '@Interfaces/Game';
+import { ValidationError } from '@Errors/index';
 
-class Firebase<T extends Data> implements DataBase<T> {
+export class Firebase<T extends Data> implements DataBase<T> {
 	public database = getFirestore(app);
 
 	public async write(data: T, location: string, document?: string): Promise<string> {
@@ -20,6 +20,11 @@ class Firebase<T extends Data> implements DataBase<T> {
 		return reference.id;
 	}
 
+	public async update(data: Partial<T>, location: string, document: string): Promise<void> {
+		const reference = this.database.collection(location).doc(document);
+		await reference.update(data);
+	}
+
 	public async read(location: string, document: string): Promise<T> {
 		const reference = this.database.collection(location).doc(document);
 
@@ -32,5 +37,3 @@ class Firebase<T extends Data> implements DataBase<T> {
 		return data;
 	}
 }
-
-export { Firebase };

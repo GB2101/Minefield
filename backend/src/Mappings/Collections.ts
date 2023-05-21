@@ -1,3 +1,3 @@
 export const Collections = {
-	Games: 'Games',
+	games: 'Games',
 };

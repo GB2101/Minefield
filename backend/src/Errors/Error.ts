@@ -16,7 +16,6 @@ class ValidationError extends Error implements Issue {
 
 	public GetIssue(): Issue {
 		return {
-			code: this.code,
 			message: this.message,
 			path: this.path,
 		};

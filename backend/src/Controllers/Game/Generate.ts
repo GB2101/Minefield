@@ -10,13 +10,12 @@ import { GameService } from '@Services/Game';
 
 const Generate: AsyncHandler = async (req, res) => {
 	const { bombs, height, width } = res.locals.body as GameBodyType;
+	const firebase = new Firebase<GameInterface>();
+	const service = new GameService(firebase);
 
 	try {
 		const game = new Game({ width, height, bombs });
 
-		const Database = new Firebase<GameInterface>();
-
-		const service = new GameService(Database);
 		const id = await service.Generate(game.GetData(), 'Games');
 
 		res.status(201).send({ id });
@@ -24,8 +23,8 @@ const Generate: AsyncHandler = async (req, res) => {
 		if (error instanceof ValidationError) {
 			res.status(error.status).send({
 				error: error.code,
-				issues: [ error.GetIssue() ],
-			} as Error400);
+				issues: error.GetIssue(),
+			});
 		}
 	}
 };

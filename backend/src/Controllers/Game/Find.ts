@@ -13,7 +13,7 @@ const Find: AsyncHandler = async (req, res) => {
 	const { id } = res.locals.params as IDParamsType;
 
 	try {
-		const document = await service.LookUp(Collections.Games, id);
+		const document = await service.LookUp(Collections.games, id);
 
 		const board = document.board.filter(cell => cell.state === 'open');
 
@@ -26,8 +26,8 @@ const Find: AsyncHandler = async (req, res) => {
 	} catch (error) {
 		if (error instanceof ValidationError) {
 			res.status(error.status).send({
-				code: error.code,
-				issues: [ error.GetIssue() ],
+				error: error.code,
+				issues: error.GetIssue(),
 			});
 		}
 	}

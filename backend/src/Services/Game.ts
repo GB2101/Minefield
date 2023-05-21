@@ -13,6 +13,10 @@ class GameService<T extends Data> {
 		return id;
 	}
 
+	public async Update(data: Partial<T>, location: string, document: string) {
+		await this.database.update(data, location, document);
+	}
+
 	public async LookUp(location: string, document: string) {
 		const doc = await this.database.read(location, document);
 		return doc;

@@ -1,8 +1,8 @@
-import { Board } from './index';
-import { Coord, GameInterface } from '@Interfaces/Game';
+import { Board, Move } from './index';
 import { Random } from '@Utils/Random';
 import { Contains } from '@Utils/Array';
 import { ValidationError } from '@Errors/index';
+import { Coord, GameInterface, Status, Movement } from '@Interfaces/Game';
 
 interface GameProps {
 	width: number;
@@ -11,11 +11,13 @@ interface GameProps {
 }
 
 export class Game implements GameInterface {
+	private _board: Board;
+	private _bombs: number;
 	private _width: number;
 	private _height: number;
-	private _bombs: number;
-	private _board: Board;
+	private _status: Status;
 	private _locations: Coord[];
+	private _movements: Movement[];
 
 	public get width() {
 		return this._width;
@@ -26,11 +28,17 @@ export class Game implements GameInterface {
 	public get bombs() {
 		return this._bombs;
 	}
+	public get status() {
+		return this._status;
+	}
 	public get board() {
 		return this._board.GetData();
 	}
 	public get locations() {
 		return this._locations;
+	}
+	public get movements() {
+		return this._movements;
 	}
 
 	public constructor(props: GameProps, assign?: GameInterface) {
@@ -44,15 +52,18 @@ export class Game implements GameInterface {
 			throw new ValidationError('InvalidValue', 400, message, [ 'bombs' ]);
 		}
 
+		this._status = assign?.status ?? 'Playing';
+		this._bombs = bombs;
 		this._width = width;
 		this._height = height;
-		this._bombs = bombs;
 
 		if (assign) {
-			this._locations = assign.locations;
+			this._locations = [ ...assign.locations ];
+			this._movements = [ ...assign.movements ];
 			this._board = new Board(assign.width, assign.height, assign.board);
 		} else {
 			this._locations = [];
+			this._movements = [];
 			this._board = new Board(width, height);
 
 			this.Generate();
@@ -61,11 +72,13 @@ export class Game implements GameInterface {
 
 	public GetData(): GameInterface {
 		return {
+			bombs: this._bombs,
 			width: this._width,
 			height: this._height,
-			bombs: this._bombs,
+			status: this._status,
 			board: this._board.GetData(),
 			locations: this._locations,
+			movements: this._movements,
 		};
 	}
 
@@ -85,7 +98,28 @@ export class Game implements GameInterface {
 			}
 
 			this._locations.push({ x, y });
-			this._board.UpdateCells({ x, y });
+			this._board.MarkBombs({ x, y });
 		}
+	}
+
+	public MakeMove(coord: Coord, flags?: Coord[]) {
+		const move = new Move(this._board, coord, flags);
+
+		if (move.status !== 'Lost') {
+			const won = this.CheckFinished();
+			move.SetWon(won);
+		}
+
+		const movement = move.GetMovement();
+
+		this._movements.push(movement);
+		return movement;
+	}
+
+	public CheckFinished() {
+		const opened = this._board.CountOpen();
+		const total = (this._width * this._height) - this._bombs;
+
+		return opened === total;
 	}
 }

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { Validate, GameId } from '@Middlewares/index';
+import { Validate } from '@Middlewares/Validate';
 
 import { HelloController } from '@Controllers/Hello';
 import { GameController } from '@Controllers/Game';

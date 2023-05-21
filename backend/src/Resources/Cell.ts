@@ -1,18 +1,21 @@
-import { CellInterface } from '@Interfaces/Game';
+import { CellInterface, Coord } from '@Interfaces/Game';
 
 export class Cell implements CellInterface {
 	private _bomb: boolean;
 	private _state: 'open' | 'closed';
 	private _content: number;
+	private _coord: Coord;
 
-	public constructor(assign?: CellInterface) {
+	public constructor(coord: Coord, assign?: CellInterface) {
 		if (assign) {
 			this._bomb = assign.bomb;
 			this._state = assign.state;
+			this._coord = assign.coord;
 			this._content = assign.content;
 		} else {
 			this._bomb = false;
 			this._state = 'closed';
+			this._coord = coord;
 			this._content = 0;
 		}
 	}
@@ -27,6 +30,10 @@ export class Cell implements CellInterface {
 
 	public get content() {
 		return this._content;
+	}
+
+	public get coord() {
+		return this._coord;
 	}
 
 	public MakeBomb() {
@@ -48,6 +55,7 @@ export class Cell implements CellInterface {
 		return {
 			bomb: this._bomb,
 			state: this._state,
+			coord: this._coord,
 			content: this._content,
 		};
 	}
