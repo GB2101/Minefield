@@ -22,8 +22,8 @@ const Generate: AsyncHandler = async (req, res) => {
 	} catch (error) {
 		if (error instanceof ValidationError) {
 			res.status(error.status).send({
-				error: error.code,
-				issues: error.GetIssue(),
+				error: error.issue,
+				issues: [ error.GetIssue() ],
 			});
 		}
 	}

@@ -19,7 +19,7 @@ export class Move {
 
 		if (board.Outside(move)) {
 			const message = `The coord is out of bounds, the board is ${board.Width}x${board.Height}`;
-			throw new ValidationError('OutOfBounds', 400, message);
+			throw new ValidationError('OutOfBounds', 'moving_outside_range', 400, message);
 		}
 
 		this.OpenCells(move);

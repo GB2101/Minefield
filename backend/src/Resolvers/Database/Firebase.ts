@@ -31,7 +31,7 @@ export class Firebase<T extends Data> implements DataBase<T> {
 		const snapshot = await reference.get();
 
 		if (!snapshot.exists) {
-			throw new ValidationError('IdNotFound', 404, `The document id: ${document} was not found`);
+			throw new ValidationError('IdNotFound', 'id_not_found', 404, `The document id: ${document} was not found`);
 		}
 		const data = snapshot.data() as T;
 		return data;

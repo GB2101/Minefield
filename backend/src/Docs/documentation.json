@@ -1,0 +1,179 @@
+{
+	"$schema": "https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json",
+	"openapi": "3.0.3",
+	"info": {
+		"title": "Minefield Backend API",
+		"version": "1.0.0",
+		"description": "This is the backend of the minefield game.",
+		"contact": {
+			"name": "Gabriel Braz",
+			"email": "gabrielbrazcs@gmail.com"
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/v1",
+			"description": "Development API"
+		}
+	],
+	"paths": {
+		"/hello": {
+			"get": {
+				"description": "Hello World Route",
+				"summary": "Says hello",
+				"tags": ["Control"],
+				"responses": {
+					"418": {
+						"description": "I am a teapot"
+					}
+				}
+			}
+		},
+		"/game": {
+			"post": {
+				"description": "Creates a new game with given dimensions",
+				"summary": "Creates game",
+				"tags": ["Games"],
+				"requestBody": {
+					"required": true,
+					"description": "The information needed to create a new game!",
+					"content": {
+						"application/json": {
+							"schema": {
+								"title": "Request Body",
+								"type": "object",
+								"properties": {
+									"width": {
+										"type": "number",
+										"maximum": 50,
+										"minimum": 5
+									},
+									"height": {
+										"type": "number",
+										"maximum": 50,
+										"minimum": 5
+									},
+									"bombs": {
+										"type": "number",
+										"minimum": 10
+									}
+								},
+								"required": ["width", "height", "bombs"]
+							},
+							"examples": {
+								"Minimum Values": {
+									"description": "The minimum values allowed to the field of width, height and bombs.",
+									"value": {
+										"width": 5,
+										"height": 5,
+										"bombs": 10
+									}
+								},
+								"Maximum Values": {
+									"description": "The maximum values allowed to the field of width, height and bombs. The number of bombs must be at most half of the available squares.",
+									"value": {
+										"width": 50,
+										"height": 50,
+										"bombs": 1250
+									}
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "The game was created successfully",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"id": {
+											"type": "string"
+										}
+									}
+								},
+								"example": {
+									"id": "VUcg2H9q4nxx0ApQOOLH"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "There was a problem with the request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"properties": {
+										"error": {
+											"type": "string"
+										},
+										"issues": {
+											"type": "array",
+											"items": {
+												"type": "object",
+												"properties": {
+													"code": {
+														"type": "string"
+													},
+													"message": {
+														"type": "string",
+														"description": "Testing"
+													},
+													"path": {
+														"type": "array",
+														"items": {
+															"type": "string"
+														}
+													}
+												}
+											}
+										}
+									}
+								},
+								"examples": {
+									"Minimum": {
+										"description": "The request has a field with lower values than the minimum required.",
+										"value": {
+											"error": "ZodValidationError",
+											"issues": [
+												{
+													"code": "too_small",
+													"minimum": 5,
+													"type": "number",
+													"inclusive": true,
+													"exact": false,
+													"message": "Number must be greater than or equal to 5",
+													"path": ["height"]
+												}
+											]
+										}
+									},
+									"Less than minimum": {
+										"description": "The request has a field with lower values than the minimum required.",
+										"value": {
+											"error": "ZodValidationError",
+											"issues": [
+												{
+													"code": "too_small",
+													"minimum": 5,
+													"type": "number",
+													"inclusive": true,
+													"exact": false,
+													"message": "Number must be greater than or equal to 5",
+													"path": ["height"]
+												}
+											]
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

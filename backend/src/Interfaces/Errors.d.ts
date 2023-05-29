@@ -3,12 +3,7 @@ import { ZodIssue } from 'zod';
 type ErrorTypes = 'InvalidValue' | 'IdNotFound' | 'OutOfBounds' | 'GameAlreadyFinished';
 
 interface Issue {
-	message: string;
-	path: string[];
-}
-
-interface Error {
-	code: ErrorTypes;
+	code: string;
 	message: string;
 	path: string[];
 }

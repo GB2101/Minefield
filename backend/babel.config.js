@@ -16,6 +16,7 @@ module.exports = {
 				'@private': './src/private',
 				'@Contracts': './src/Contracts',
 				'@Controllers': './src/Controllers',
+				'@Docs': './src/Docs',
 				'@Errors': './src/Errors',
 				'@Functions': './src/Functions',
 				'@Interfaces': './src/Interfaces',

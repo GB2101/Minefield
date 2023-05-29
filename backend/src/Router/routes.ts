@@ -9,7 +9,7 @@ import { GameSchemas, MoveSchemas, Request } from '@Schemas/index';
 
 const router = Router();
 
-router.get('/', HelloController);
+router.get('/hello', HelloController);
 
 router.post('/game', Validate(GameSchemas.Body, 'body'), GameController.Generate);
 router.get('/game/:id', Validate(Request.Params, 'params'), GameController.Find);

@@ -49,7 +49,7 @@ export class Game implements GameInterface {
 
 		if (!valid) {
 			const message = `The amount of bombs must be at maximum half of the number of squares (${maximum})`;
-			throw new ValidationError('InvalidValue', 400, message, [ 'bombs' ]);
+			throw new ValidationError('InvalidValue', 'too_much_bombs', 400, message, [ 'bombs' ]);
 		}
 
 		this._status = assign?.status ?? 'Playing';

@@ -1,13 +1,15 @@
 import { Issue, ErrorTypes } from '@Interfaces/Errors';
 
-class ValidationError extends Error implements Issue {
-	public code;
+class ValidationError extends Error {
+	public issue: ErrorTypes;
+	public code: string;
 	public status: number;
 	public message: string;
 	public path: string[];
 
-	public constructor(code: ErrorTypes, status: number, message: string, path?: string[]) {
+	public constructor(error: ErrorTypes, code: string, status: number, message: string, path?: string[]) {
 		super();
+		this.issue = error;
 		this.code = code;
 		this.status = status;
 		this.message = message;
@@ -16,6 +18,7 @@ class ValidationError extends Error implements Issue {
 
 	public GetIssue(): Issue {
 		return {
+			code: this.code,
 			message: this.message,
 			path: this.path,
 		};

@@ -20,7 +20,7 @@ const MakeMove: AsyncHandler = async (req, res) => {
 
 		if (document.status !== 'Playing') {
 			const message = `This game is already ${document.status}. You can not make more moves.`;
-			throw new ValidationError('GameAlreadyFinished', 400, message);
+			throw new ValidationError('GameAlreadyFinished', 'you_have_won', 400, message);
 		}
 
 		const flags = body.flags?.map(flag => ({ x: flag.coord_x, y: flag.coord_y }));
@@ -45,8 +45,8 @@ const MakeMove: AsyncHandler = async (req, res) => {
 	} catch (error) {
 		if (error instanceof ValidationError) {
 			res.status(error.status).send({
-				error: error.code,
-				issues: error.GetIssue(),
+				error: error.issue,
+				issues: [ error.GetIssue() ],
 			});
 		}
 	}
